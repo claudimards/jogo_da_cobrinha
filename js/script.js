@@ -45,11 +45,19 @@ function update( event ){ // códigos da direções 37 -> esquerda | 38 -> cima 
 
 // função para iniciar o jogo
 function startGame(){
-    // permitindo que a cobrinha atravesse a tela de um lado para o outro
+        // permitindo que a cobrinha atravesse a tela de um lado para o outro
     if( snake[0].x > 15 * box && direction === "right" ) snake[0].x = 0;
     if( snake[0].x < 0 && direction === "left") snake[0].x = 15 * box;
     if( snake[0].y > 15 * box && direction === "down" ) snake[0].y = 0;
     if( snake[0].y < 0 && direction === "up" ) snake[0].y = 15 * box;
+
+    // verificando se a cobrinha colide com ela mesma para finalizar o jogo
+    for( i = 1; i < snake.length; i++ ){
+        if( snake[0].x === snake[i].x && snake[0].y === snake[i].y ){
+            clearInterval( game );
+            alert('Game Over :(')
+        }
+    }
 
     // chamando a função que cria a tela do jogo na página
     createBG();
